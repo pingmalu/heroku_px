@@ -1,4 +1,7 @@
 <?php
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
+$REQUEST_METHOD = $_SERVER['REQUEST_METHOD'];
 
 # edit this
 
@@ -120,10 +123,10 @@ function debug ($msg) {
         }
         $url = parse_url($matches[2]);
         $host = $url["host"];
-        $port = $url["port"] ? $url["port"] : 80;
+        $port = isset($url["port"]) ? $url["port"] : 80;
         $req = $matches[1] ." ".
                ($url["path"] ? $url["path"] : '/') .
-               ($url["query"] ? "?". $url["query"] : '') .
+               (isset($url["query"]) ? "?". $url["query"] : '') .
                $matches[3] . substr($req, $nl);
     } else {
         debug("proxy");
